@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-interface Contact {
+export type Contact = {
     firstName:string,
     lastName:string,
     age:number,
@@ -14,8 +14,12 @@ export const contactSlices = createSlice({
     name: 'contact',
     initialState,
     reducers: {
+        addAllContact: (state,action) => {
+            return action.payload;
+        },
         addContact: (state,action) => {
             state.push(action.payload);
+            return state;
         },
         deleteContact: (state,action) => {
 
@@ -24,15 +28,17 @@ export const contactSlices = createSlice({
             })
 
             state = dataFilter;
+            return state;
         },
         updateContact: (state,action) => {
             let updatedData = action.payload;
             let index = state.map(contact => contact.id).indexOf(updatedData.id);
             state[index] = updatedData; 
+            return state;
         }
     }
 
 })
 
-export const { addContact, deleteContact, updateContact } = contactSlices.actions;
+export const { addContact, deleteContact, updateContact, addAllContact } = contactSlices.actions;
 export default contactSlices.reducer;

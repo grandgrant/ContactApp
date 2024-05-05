@@ -16,17 +16,20 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { config } from '@gluestack-ui/config';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
-import SplashScreen from './src/SplashScreen';
-import MainScreen from './src/MainScreen';
-import DetailContactScreen from './src/DetailContactScreen';
+import SplashScreen from './src/screen/SplashScreen';
+import MainScreen from './src/screen/MainScreen';
+import DetailContactScreen from './src/screen/DetailContactScreen';
 import { store } from './src/state/store';
-import AddContactScreen from './src/AddContactScreen';
+import AddContactScreen from './src/screen/AddContactScreen';
 import { RootStackParamList } from './src/types/navigationTypes';
+import UpdateContactScreen from './src/screen/UpdateContactScreen';
+import { CColor } from './src/theme/CColor';
 
 
 function App(): React.JSX.Element {
@@ -40,13 +43,14 @@ function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
-      <GluestackUIProvider>
+      <GluestackUIProvider config={config}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name='Splash' component={SplashScreen}/>
             <Stack.Screen name='Main' component={MainScreen} />
-            <Stack.Screen name='DetailContact' component={DetailContactScreen} />
-            <Stack.Screen name='AddContact' component={AddContactScreen} />
+            <Stack.Screen name='DetailContact' component={DetailContactScreen} options={{headerShown: true, title: "Detil Kontak"}}/>
+            <Stack.Screen name='AddContact' component={AddContactScreen} options={{headerShown: true, title: "Tambah Kontak"}}/>
+            <Stack.Screen name='UpdateContact' component={UpdateContactScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </GluestackUIProvider>
